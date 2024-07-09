@@ -26,6 +26,11 @@ resource "aws_launch_configuration" "lc-example" {
                 nohup busybox httpd -f -p ${var.server_port} &
                 EOF
 
+    lifecycle {
+      create_before_destroy = true
+    }
+  
+
 }
 
 resource "aws_security_group" "my_instance_sec_group" {
@@ -66,10 +71,7 @@ resource "aws_autoscaling_group" "as-example" {
         propagate_at_launch = true
     }
 
-    lifecycle {
-      create_before_destroy = true
-    }
-  
+    
 }
 
 
